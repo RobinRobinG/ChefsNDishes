@@ -1,0 +1,36 @@
+@using ChefsNDishes.Models;
+@model List<Dish>
+@{
+    ViewData["Title"] = "Dishes List";
+}
+<div class="wrapper">
+    <div class="header">
+        <h1><a href="/">Chefs List</a> | Dishes List</h1>
+    </div>
+    <a href="/dishes/new">ADD A DISH</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Tastiness</th>
+                <th scope="col">Chef</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        @{
+            foreach (Dish dish in @Model)
+            {
+            <tr>
+                <td scope="col">@dish.Name</td>
+                <td scope="col">@dish.Description</td>
+                <td scope="col">@dish.Tastiness</td>
+                <td scope="col">@dish.DishChef.FirstName @dish.DishChef.LastName</td>
+                <td scope="col"><a href="/dishes/delete/@dish.DishId">Delete</a></td>
+            </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,45 @@
+@using ChefsNDishes.Models;
+@model List<Chef>
+@{
+    ViewData["Title"] = "Chefs List";
+}
+<div class="wrapper">
+    <div class="header">
+        <h1>Chefs List | <a href="/dishes">Dishes List</a></h1>
+    </div>
+    <a href="/new">ADD A CHEF</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col"># Dishes</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        @{
+            foreach (Chef chef in @Model)
+            {
+            <tr>
+                <td scope="col">@chef.FirstName @chef.LastName</td>
+
+                @{
+                    DateTime dob = @chef.Birthday.Date;
+                    DateTime Today = DateTime.Now;
+                    int age = Today.Year - dob.Year;
+                    if (dob > Today.AddYears(-age))
+                    {
+                        age--;
+                    }
+                    <td scope="col">@age</td>
+                }
+
+                <td scope="col">@chef.Dishes.Count()</td>
+                <td scope="col"><a href="/delete/@chef.ChefId">Delete</a></td>
+            </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>
